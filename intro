@@ -1,0 +1,56 @@
+
+container: runtime instance of docker image.
+master nodes:
+runs kubernetes process - api server which is entrypoint ot the k8s cluster
+
+controller manager- keeps track of whats happening in the cluster
+
+scheduler - ensure pods placement (it ensures that which next container should be place in which worker node) it checks the availibity of resources to identify
+
+etcd - kubernets backing store(backup)
+
+matser node: it is very importatnt need atleast to master nodes for backup.
+
+worker node: these actually run applicxatioin
+each worker node has different container(docker) of different application deployed on it.
+
+Node: 
+
+Pod: samllest unit in kubernets
+abstraction over container
+usually it is prefered to run i application per pod
+each pod gets its own ip address
+pods can die easily
+Typically, pods contain closely related containers that need to share resources and work together. For example, you might have a pod with multiple containers for a web application, where one container serves the web application itself and another container handles logging or monitoring.
+
+Service:
+In Kubernetes (often abbreviated as K8s), a "service" is an abstraction that defines a logical set of pods and a policy by which to access them. It provides a consistent way to access a set of pods, regardless of the number of replicas or their individual IP addresses.
+
+so the request is first asent to ingress and then it goes to specific service.
+
+flow :
+Client Request: A client initiates a request by searching a domain in a web browser or sending an HTTP request from a client application.
+
+DNS Resolution: The client's DNS resolver translates the domain name into an IP address. If the domain is served by a Kubernetes cluster, the DNS resolution might return the IP address of a load balancer or an Ingress controller within the cluster.
+
+Ingress Controller: The IP address obtained from DNS resolution points to the Ingress controller in the Kubernetes cluster. The Ingress controller is responsible for managing incoming traffic and routing it to the appropriate services within the cluster based on the rules defined in the Ingress resources.
+
+Ingress Resource: The Ingress controller receives the incoming request and examines the host and path specified in the HTTP request. Based on the rules defined in the Ingress resources, the controller determines which Service within the cluster should handle the request.
+
+Service: Once the Ingress controller identifies the appropriate Service, it forwards the request to that Service. The Service is responsible for load balancing and routing the request to one of the pods associated with it based on the configured load balancing algorithm.
+
+Pod: The selected pod receives the request and processes it. The pod might contain one or more containers running the application logic needed to fulfill the request.
+
+Response: After processing the request, the pod generates a response, which is then sent back to the client through the reverse path, going through the Service, Ingress controller, and eventually reaching the client.
+
+Volume:
+Data Persistence: Volumes allow data to persist even if a pod is terminated and replaced. This is essential for scenarios where applications need access to shared data or need to store data between pod restarts.
+
+
+Distributiob system:
+
+when a pod is donw then we replicate these such that our application dosent face downtime and also service is connected to these reolica and it will identify where to direct the incoming request.
+
+ 
+
+
